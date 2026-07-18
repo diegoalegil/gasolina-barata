@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.basemaps.cartocdn.com; connect-src 'self' https://sedeaplicaciones.minetur.gob.es; manifest-src 'self'">
+  <title>Gasolina Barata · Tenerife</title>
+  <meta name="description" content="La gasolina más barata de Tenerife, con precios oficiales actualizados del Ministerio.">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Gasolina">
+  <meta name="theme-color" content="#F6F1E7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1C1916" media="(prefers-color-scheme: dark)">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+
+  <!-- Splash de entrada (se elimina del DOM al terminar) -->
+  <div id="splash" role="presentation" aria-hidden="true">
+    <div class="splash-scene">
+      <div class="splash-drop-wrap">
+        <svg viewBox="150 82 212 332" aria-hidden="true">
+          <defs>
+            <clipPath id="splashDropClip">
+              <path d="M256 92C222 160 160 234 160 308a96 96 0 0 0 192 0c0-74-62-148-96-216Z"></path>
+            </clipPath>
+          </defs>
+          <path d="M256 92C222 160 160 234 160 308a96 96 0 0 0 192 0c0-74-62-148-96-216Z" fill="#F7F0E3"></path>
+          <g clip-path="url(#splashDropClip)">
+            <circle class="splash-sun" cx="289" cy="183" r="13" fill="#E5B266"></circle>
+            <g class="splash-mountain">
+              <path d="M146 388c48-30 70-84 86-130 7 7 15 0 21 4s14-2 19 2 9-2 12-8c16 48 38 102 86 132l-4 52H146Z" fill="#34778F"></path>
+              <path d="M262 263c8 3 16-1 22-7 16 48 38 102 86 132l-4 52H262Z" fill="#275F76"></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="splash-title">Gasolina barata</p>
+    </div>
+  </div>
+
+  <!-- Barra compacta que aparece al hacer scroll -->
+  <div class="topbar" id="topbar" data-shown="false">
+    <span class="topbar-title">Gasolina barata</span>
+    <span class="topbar-price" id="topbarPrice" aria-hidden="true"></span>
+    <button class="updated-chip" id="updatedChip" aria-label="Actualizar precios">
+      <svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>
+      <span id="updatedChipText">…</span>
+    </button>
+  </div>
+
+  <div class="ptr" id="ptr" aria-hidden="true">
+    <svg class="ptr-drop" viewBox="0 0 24 24"><path d="M12 3c-3.5 4.6-5.5 7.5-5.5 10.2a5.5 5.5 0 0 0 11 0C17.5 10.5 15.5 7.6 12 3Z" fill="currentColor"/></svg>
+  </div>
+
+  <main id="main">
+    <header class="hero">
+      <button class="gastos-btn" id="gastosBtn" aria-label="Mis repostajes y gastos">
+        <svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>
+      </button>
+      <svg class="hero-art" viewBox="0 0 390 168" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
+            <stop class="hero-sky-stop-1" offset="0"/>
+            <stop class="hero-sky-stop-2" offset="1"/>
+          </linearGradient>
+        </defs>
+        <!-- F13 capas con parallax · F12 cielo según la hora · F14 brisa -->
+        <g class="layer-sky">
+          <rect x="-10" y="0" width="410" height="168" fill="url(#heroSky)"/>
+          <circle class="hero-star" cx="118" cy="38" r="1.4" fill="#F7F0E3"/>
+          <circle class="hero-star" cx="206" cy="26" r="1.1" fill="#F7F0E3"/>
+          <circle class="hero-star" cx="58" cy="58" r="1" fill="#F7F0E3"/>
+          <circle class="hero-star" cx="160" cy="50" r="1.2" fill="#F7F0E3"/>
+        </g>
+        <g class="layer-sun">
+          <circle cx="312" cy="72" r="22" fill="var(--art-sun)"/>
+          <path class="bird-flap" d="M250 74c4-4 8-4 12 0" stroke="var(--art-bird)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path class="bird-flap b2" d="M270 62c3.4-3.4 6.8-3.4 10.2 0" stroke="var(--art-bird)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </g>
+        <g class="layer-mid">
+          <path d="M-10 132C40 124 70 98 108 94c42-4 74 16 124 24 60 9 112 2 178 10v40H-10Z" fill="var(--art-ridge)"/>
+          <path d="M40 158c40-19 70-72 100-105 6-7 13-11 22-11s16 4 22 11c30 33 62 86 104 105Z" fill="var(--art-teide)"/>
+          <path d="M162 42c9 0 16 4 22 11 30 33 62 86 104 105H162Z" fill="var(--art-teide-sh)"/>
+          <path d="M134 66c8-13 15-24 28-24s21 11 29 24c-8 7-15-2-22 5s-13-1-19 4-11-4-16-9Z" fill="var(--art-snow)"/>
+        </g>
+        <g class="layer-fore">
+          <path d="M-10 168v-26c60-12 130 8 210 2 70-5 130 6 200-4v28Z" fill="var(--art-hill)"/>
+          <path d="M-10 168v-12c90-8 200 6 300 0 50-3 80 2 110-2v14Z" fill="var(--art-sand)"/>
+          <circle cx="84" cy="150" r="3" fill="var(--art-shrub)"/>
+          <circle cx="96" cy="153" r="2.2" fill="var(--art-shrub)"/>
+          <circle cx="298" cy="148" r="3" fill="var(--art-shrub)"/>
+          <circle cx="312" cy="152" r="2" fill="var(--art-shrub)"/>
+          <use class="palm-leaves" href="#il-palm" x="24" y="112" width="34" height="34"/>
+          <use href="#il-pump" x="338" y="118" width="27" height="27"/>
+          <circle class="mote" cx="150" cy="122" r="1.5" fill="var(--art-snow)"/>
+          <circle class="mote m2" cx="232" cy="128" r="1.2" fill="var(--art-snow)"/>
+          <circle class="mote m3" cx="92" cy="126" r="1.3" fill="var(--art-snow)"/>
+        </g>
+      </svg>
+      <div class="hero-text">
+        <h1 class="hero-title">Gasolina barata</h1>
+        <p class="hero-sub">
+          <span id="heroCount">Tenerife</span>
+          <button class="updated-inline" id="updatedInline">cargando precios…</button>
+        </p>
+      </div>
+    </header>
+
+    <section class="stats" id="stats" aria-label="Resumen de precios">
+      <div class="stat">
+        <span class="stat-top">
+          <svg class="stat-ic" aria-hidden="true"><use href="#il-drop"/></svg>
+          <span class="stat-label" id="statMinLabel">Más barata</span>
+        </span>
+        <span class="stat-value" id="statMin">—</span>
+      </div>
+      <div class="stat">
+        <span class="stat-top">
+          <svg class="stat-ic" aria-hidden="true"><use href="#il-gauge"/></svg>
+          <span class="stat-label" id="statAvgLabel">Media de la isla</span>
+        </span>
+        <span class="stat-value" id="statAvg">—</span>
+      </div>
+      <div class="stat">
+        <span class="stat-top">
+          <svg class="stat-ic" aria-hidden="true"><use href="#il-coin"/></svg>
+          <span class="stat-label" id="statSaveLabel">Ahorro por depósito</span>
+        </span>
+        <span class="stat-value is-save" id="statSave">—</span>
+      </div>
+    </section>
+
+    <nav class="seg seg-fuel" id="fuelSeg" aria-label="Combustible">
+      <span class="seg-thumb" aria-hidden="true"></span>
+      <button class="seg-btn" data-fuel="g95" aria-pressed="true">Gasolina 95</button>
+      <button class="seg-btn" data-fuel="g98" aria-pressed="false">98</button>
+    </nav>
+
+    <div class="apps" id="appsRow">
+      <span class="apps-label">Descuento de tu app</span>
+      <div class="apps-chips">
+        <button class="app-chip" data-mode="waylet" aria-pressed="false">Waylet</button>
+        <button class="app-chip" data-mode="moeve" aria-pressed="false">Moeve</button>
+        <button class="app-chip" data-mode="disa" aria-pressed="false">DISA</button>
+      </div>
+    </div>
+
+    <div class="dto-row" id="dtoRow" hidden>
+      <span class="dto-label">
+        <svg class="stat-ic" aria-hidden="true"><use href="#il-coin"/></svg>
+        Tu descuento
+      </span>
+      <nav class="seg seg-dto" id="dtoSeg" aria-label="Descuento por litro">
+        <span class="seg-thumb" aria-hidden="true"></span>
+        <button class="seg-btn" data-dto="5" aria-pressed="true">−5 ct</button>
+        <button class="seg-btn" data-dto="10" aria-pressed="false">−10 ct</button>
+      </nav>
+    </div>
+
+    <div class="verdict" id="verdict" hidden></div>
+
+    <div class="premium-tip" id="premiumTip" hidden></div>
+
+    <div class="controls">
+      <nav class="seg seg-sort" id="sortSeg" aria-label="Ordenar">
+        <span class="seg-thumb" aria-hidden="true"></span>
+        <button class="seg-btn" data-sort="price" aria-pressed="true">Más baratas</button>
+        <button class="seg-btn" data-sort="near" aria-pressed="false">
+          <svg class="ic" aria-hidden="true"><use href="#i-nav"/></svg>
+          Más cercanas
+        </button>
+      </nav>
+      <button class="map-btn" id="mapBtn" aria-label="Ver mapa">
+        <svg class="ic" aria-hidden="true"><use href="#i-map"/></svg>
+        Mapa
+      </button>
+    </div>
+
+    <ol class="cards" id="list">
+      <li class="card skeleton"></li>
+      <li class="card skeleton"></li>
+      <li class="card skeleton"></li>
+      <li class="card skeleton"></li>
+      <li class="card skeleton"></li>
+      <li class="card skeleton"></li>
+    </ol>
+
+    <div class="error-state" id="errorState" hidden>
+      <svg class="error-art" viewBox="0 0 120 120" aria-hidden="true">
+        <rect x="22" y="30" width="52" height="64" rx="10" fill="var(--art-teide)"/>
+        <rect x="30" y="40" width="36" height="20" rx="5" fill="var(--art-snow)"/>
+        <rect x="16" y="94" width="64" height="10" rx="5" fill="var(--art-ridge)"/>
+        <path class="error-hose" d="M74 48h8a8 8 0 0 1 8 8v26a6 6 0 0 0 12 0V60" stroke="var(--art-teide-sh)" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path class="error-drop" d="M96 38c-5.5 7-8 10.5-8 14.6a8 8 0 0 0 16 0c0-4.1-2.5-7.6-8-14.6Z" fill="var(--art-hill)"/>
+      </svg>
+      <h2 class="error-title">No hay conexión</h2>
+      <p class="error-text">No se pudieron cargar los precios. Comprueba tu conexión e inténtalo de nuevo.</p>
+      <button class="retry-btn" id="retryBtn">Reintentar</button>
+    </div>
+
+    <footer class="foot">
+      <svg class="foot-scene" viewBox="0 0 320 86" aria-hidden="true">
+        <circle cx="284" cy="20" r="10" fill="var(--art-sun)"/>
+        <path d="M236 26c3.4-3.4 6.8-3.4 10.2 0" stroke="var(--art-bird)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M0 70c60-7 130-3 200-5 50-2 90 1 120-1v22H0Z" fill="var(--art-sand)"/>
+        <use href="#il-palm" x="42" y="24" width="46" height="46"/>
+        <use href="#il-pump" x="216" y="28" width="42" height="42"/>
+        <circle cx="120" cy="66" r="3" fill="var(--art-shrub)"/>
+        <circle cx="132" cy="69" r="2.2" fill="var(--art-shrub)"/>
+        <circle cx="186" cy="67" r="2.6" fill="var(--art-shrub)"/>
+      </svg>
+      <p>Precios oficiales que las estaciones comunican al <strong>Ministerio para la Transición Ecológica</strong>. Se actualizan varias veces al día.</p>
+      <p class="foot-tiny">Hecho con cariño para Tenerife 🌋</p>
+    </footer>
+  </main>
+
+  <!-- Vista de mapa -->
+  <div class="mapview" id="mapView" hidden>
+    <div class="map-canvas" id="map"></div>
+    <div class="map-legend" aria-hidden="true">
+      <span class="legend-swatch q0"></span><span class="legend-swatch q1"></span><span class="legend-swatch q2"></span><span class="legend-swatch q3"></span>
+      <span class="legend-text">barata → cara</span>
+    </div>
+    <button class="map-best" id="mapBest" aria-label="Volar a la más barata cerca de mí">
+      <svg class="ilc" aria-hidden="true"><use href="#il-drop"/></svg>
+      Más barata cerca
+    </button>
+    <button class="map-close" id="mapClose" aria-label="Cerrar mapa y volver a la lista">
+      <svg class="ic" aria-hidden="true"><use href="#i-list"/></svg>
+      Lista
+    </button>
+  </div>
+
+  <!-- Vista de gastos / repostajes -->
+  <div class="logview" id="logView" hidden>
+    <div class="logview-head">
+      <h2 class="logview-title">Mis repostajes</h2>
+      <button class="logview-close" id="logClose" aria-label="Cerrar">
+        <svg class="ic" aria-hidden="true"><use href="#i-list"/></svg>
+        Lista
+      </button>
+    </div>
+    <div class="logview-body" id="logBody"></div>
+  </div>
+
+  <!-- Hoja de detalle -->
+  <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+  <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Detalle de gasolinera">
+    <div class="sheet-grip" aria-hidden="true"><span></span></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M20 12a8 8 0 1 1-2.6-5.9M20 3v4.5h-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-nav" viewBox="0 0 24 24">
+        <path d="M20.3 3.7 11 21l-1.8-7.4L2 11.9 20.3 3.7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-map" viewBox="0 0 24 24">
+        <path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Zm0 0v14m6-12v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-list" viewBox="0 0 24 24">
+        <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <path d="M4 21V11M9.3 21V4M14.6 21v-7M20 21V8M3 21h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+
+      <!-- iconitos ilustrados, estilo cálido -->
+      <symbol id="il-drop" viewBox="0 0 48 48">
+        <path d="M24 5C17 14 12 21 12 27.5 12 34.8 17.3 40.5 24 40.5S36 34.8 36 27.5C36 21 31 14 24 5Z" fill="var(--art-teide)"/>
+        <circle cx="18.8" cy="28.5" r="3.6" fill="var(--art-snow)"/>
+      </symbol>
+      <symbol id="il-gauge" viewBox="0 0 48 48">
+        <path d="M7 31a17 17 0 0 1 34 0h-7.5a9.5 9.5 0 0 0-19 0Z" fill="var(--art-hill)"/>
+        <path d="M23 29.4 13.4 17.8 26 25.6Z" fill="var(--art-teide-sh)"/>
+        <circle cx="24" cy="31" r="4" fill="var(--art-teide)"/>
+      </symbol>
+      <symbol id="il-coin" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="16" fill="var(--art-sun)"/>
+        <circle cx="24" cy="24" r="11.5" fill="var(--art-sun-deep)"/>
+        <path d="M28.5 18.5a7.5 7.5 0 1 0 0 11M16.5 21.8h8M16.5 26.2h8" fill="none" stroke="var(--art-snow)" stroke-width="2.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="il-pin" viewBox="0 0 48 48">
+        <path d="M24 44S9.5 31.5 9.5 19.8a14.5 14.5 0 0 1 29 0C38.5 31.5 24 44 24 44Z" fill="var(--art-teide)"/>
+        <circle cx="24" cy="19.5" r="5.4" fill="var(--art-snow)"/>
+      </symbol>
+      <symbol id="il-clock" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="17" fill="var(--art-hill)"/>
+        <circle cx="24" cy="24" r="13.2" fill="var(--art-snow)"/>
+        <path d="M24 16.5V24l5.5 3.5" fill="none" stroke="var(--art-teide-sh)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="il-palm" viewBox="0 0 48 48">
+        <path d="M23.5 44c-.5-8 .5-17 4.5-24.6l-3-1.4C21 25.6 20.5 36 21.5 44Z" fill="var(--art-trunk)"/>
+        <path d="M26.5 19.5C30 12.5 36 10 42 12c-4 4-10 6-15.5 7.5Z" fill="var(--art-shrub)"/>
+        <path d="M26.5 19.5C22 12 15.5 10.5 10 13.5c5 3.5 11 5.1 16.5 6Z" fill="var(--art-hill)"/>
+        <path d="M26.5 19.5c5-2 11-1 14.5 3-5 1.5-10.5 0-14.5-3Z" fill="var(--art-hill)"/>
+        <path d="M26.5 19.5c-5-2.5-10.5-1.5-14 2.5 5 1.8 10.3.3 14-2.5Z" fill="var(--art-shrub)"/>
+        <circle cx="25.2" cy="21.2" r="1.8" fill="var(--art-trunk)"/>
+        <circle cx="28.4" cy="21.6" r="1.5" fill="var(--art-trunk)"/>
+      </symbol>
+      <symbol id="il-pump" viewBox="0 0 48 48">
+        <rect x="10" y="38" width="20" height="4.5" rx="2.2" fill="var(--art-ridge)"/>
+        <rect x="12" y="13" width="16" height="26" rx="4" fill="var(--art-teide)"/>
+        <rect x="15.5" y="17.5" width="9" height="7" rx="2" fill="var(--art-snow)"/>
+        <path d="M28 20h4a4 4 0 0 1 4 4v9a3 3 0 0 0 6 0v-7" fill="none" stroke="var(--art-teide-sh)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M42 14.5c-2.6 3.4-3.9 5.2-3.9 7.2a3.9 3.9 0 0 0 7.8 0c0-2-1.3-3.8-3.9-7.2Z" fill="var(--art-hill)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <noscript><p style="padding:2rem;text-align:center">Esta app necesita JavaScript para mostrar los precios.</p></noscript>
+  <script src="js/splash.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

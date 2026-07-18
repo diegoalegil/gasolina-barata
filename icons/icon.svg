@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E86A8"/>
+      <stop offset="1" stop-color="#1B6182"/>
+    </linearGradient>
+    <clipPath id="drop">
+      <path d="M256 92C222 160 160 234 160 308a96 96 0 0 0 192 0c0-74-62-148-96-216Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- gota de combustible -->
+  <path d="M256 92C222 160 160 234 160 308a96 96 0 0 0 192 0c0-74-62-148-96-216Z" fill="#F7F0E3"/>
+
+  <g clip-path="url(#drop)">
+    <!-- sol -->
+    <circle cx="289" cy="183" r="13" fill="#E5B266"/>
+    <!-- Teide dentro de la gota: la línea ondulada de nieve se funde con el cielo -->
+    <path d="M146 388c48-30 70-84 86-130 7 7 15 0 21 4s14-2 19 2 9-2 12-8c16 48 38 102 86 132l-4 52H142Z" fill="#34778F"/>
+    <path d="M262 263c8 3 16-1 22-7 16 48 38 102 86 132l-4 52H262Z" fill="#275F76"/>
+  </g>
+</svg>
