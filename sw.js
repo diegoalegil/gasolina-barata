@@ -1,6 +1,6 @@
 // Service worker: la app funciona al instante y sin conexión.
 
-const VERSION = 'gb-v3';
+const VERSION = 'gb-v4';
 
 const SHELL = [
   './',
