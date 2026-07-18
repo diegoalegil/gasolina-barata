@@ -460,17 +460,17 @@
 .hero-sky-stop-2 { stop-color: var(--sky-2); }
 .hero-star { opacity: 0; transition: opacity 0.8s; }
 
-.hero-art[data-daytime="dawn"]  { --sky-1: #F4D2B0; --sky-2: #F3E4CF; --art-sun: #E9C07E; }
-.hero-art[data-daytime="day"]   { --sky-1: #F8F0DD; --sky-2: #F6F1E7; }
-.hero-art[data-daytime="dusk"]  { --sky-1: #E0A176; --sky-2: #F0D2B4; --art-sun: var(--art-sun-deep); }
-.hero-art[data-daytime="night"] { --sky-1: #3A2A26; --sky-2: #5A4036; --art-sun: #E8DCC4; }
+.hero-art[data-daytime="dawn"]  { --sky-1: #BFD6E0; --sky-2: #DDEAEF; --art-sun: #B7D2DD; }
+.hero-art[data-daytime="day"]   { --sky-1: #E4EDEE; --sky-2: #EDF2F1; }
+.hero-art[data-daytime="dusk"]  { --sky-1: #6E7DB2; --sky-2: #C3CFE4; --art-sun: var(--art-sun-deep); }
+.hero-art[data-daytime="night"] { --sky-1: #22323C; --sky-2: #33474F; --art-sun: #D6E6EC; }
 .hero-art[data-daytime="night"] .hero-star { opacity: 0.5; }
 
 @media (prefers-color-scheme: dark) {
-  .hero-art[data-daytime="dawn"]  { --sky-1: #2E211C; --sky-2: #3A2A22; }
-  .hero-art[data-daytime="day"]   { --sky-1: #221E1A; --sky-2: #1C1916; }
-  .hero-art[data-daytime="dusk"]  { --sky-1: #3A241B; --sky-2: #2A1F18; }
-  .hero-art[data-daytime="night"] { --sky-1: #181412; --sky-2: #281C18; }
+  .hero-art[data-daytime="dawn"]  { --sky-1: #1B2830; --sky-2: #243740; }
+  .hero-art[data-daytime="day"]   { --sky-1: #1B2A32; --sky-2: #131A1B; }
+  .hero-art[data-daytime="dusk"]  { --sky-1: #2A2E4A; --sky-2: #1A2130; }
+  .hero-art[data-daytime="night"] { --sky-1: #141C20; --sky-2: #26333A; }
 }
 
 @property --sky-1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
@@ -490,6 +490,48 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-art .layer-sky, .hero-art .layer-sun, .hero-art .layer-mid, .hero-art .layer-fore { transform: none !important; }
+}
+
+
+/* ============================================================
+   DATO CURIOSO DE CADA GASOLINERA (ficha)
+   Historia real de la marca + insignias calculadas en vivo.
+   ============================================================ */
+
+.story {
+  margin: 15px 0 2px;
+  padding: 13px 15px 14px;
+  background: var(--accent-soft);
+  border-radius: var(--r-md);
+}
+.story-head {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.03em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 8px;
+}
+.story-head .ilc { width: 18px; height: 18px; }
+.story-text { font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+.story-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+.story-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 11px 5px 8px;
+  background: var(--card); border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--ink-2);
+  box-shadow: var(--shadow-card);
+}
+.story-badge .ilc { width: 15px; height: 15px; flex: none; }
+
+
+/* ============================================================
+   TECLADO iPhone: la ficha sube por encima del teclado
+   sheet.js pone --kb (alto del teclado) y la clase .kb al enfocar un campo.
+   ============================================================ */
+
+.sheet.kb {
+  bottom: var(--kb, 0px);
+  max-height: calc(86dvh - var(--kb, 0px));
+  transition: bottom 0.22s var(--ease-ios), max-height 0.22s var(--ease-ios);
 }
 
 

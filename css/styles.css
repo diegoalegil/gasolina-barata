@@ -1,41 +1,43 @@
 /* ============================================================
    Gasolina Barata · Tenerife — design system
-   Base cálida (crema/arena) + acento azul océano (hora azul) + materiales iOS
+   Paleta fría costera: Atlántico azul + verde del norte + bruma,
+   con violeta al atardecer. (En contraste al cálido volcánico del diésel.)
    ============================================================ */
 
 :root {
-  --bg: #F6F1E7;
-  --card: #FFFDF8;
-  --card-press: #F4EEE2;
-  --ink: #2A251C;
-  --ink-2: #6F6754;
-  --ink-3: #857A5E;
+  --bg: #EDF2F1;
+  --card: #FBFDFD;
+  --card-press: #E4ECEB;
+  --ink: #1E2A2C;
+  --ink-2: #566467;
+  --ink-3: #7C898B;
   --accent: #1E6E8E;
-  --accent-soft: #D6E7EF;
-  --hair: rgba(70, 56, 34, 0.10);
-  --hair-strong: rgba(70, 56, 34, 0.16);
-  --shadow-card: 0 1px 2px rgba(70, 56, 34, 0.05), 0 10px 30px -12px rgba(70, 56, 34, 0.18);
-  --shadow-float: 0 2px 8px rgba(70, 56, 34, 0.12), 0 16px 40px -8px rgba(70, 56, 34, 0.28);
-  --material: rgba(246, 241, 231, 0.82);
+  --accent-soft: #D4E6EC;
+  --accent-2: #6C6FC0;            /* violeta del atardecer (toque secundario) */
+  --hair: rgba(28, 52, 54, 0.10);
+  --hair-strong: rgba(28, 52, 54, 0.16);
+  --shadow-card: 0 1px 2px rgba(28, 52, 54, 0.05), 0 10px 30px -12px rgba(28, 52, 54, 0.18);
+  --shadow-float: 0 2px 8px rgba(28, 52, 54, 0.12), 0 16px 40px -8px rgba(28, 52, 54, 0.26);
+  --material: rgba(237, 242, 241, 0.82);
 
-  /* precios por cuartil: barata → cara */
-  --q0: #4F7B43;  --q0-bg: #E7EEDC;
-  --q1: #8A7A2E;  --q1-bg: #EFEAD2;
-  --q2: #A8632F;  --q2-bg: #F4E3D0;
-  --q3: #A8442E;  --q3-bg: #F4D9CF;
+  /* precios por cuartil: barata → cara (verde fresco → coral) */
+  --q0: #2E8B6E;  --q0-bg: #D8EBE3;
+  --q1: #6E8E56;  --q1-bg: #E1EAD6;
+  --q2: #BF8A3A;  --q2-bg: #EFE6D0;
+  --q3: #C6553B;  --q3-bg: #F1DACF;
 
   /* ilustraciones */
-  --art-sun: #E5B266;
-  --art-sun-deep: #D29C4F;
-  --art-trunk: #8C6B4F;
-  --art-ridge: #E9DBBE;
+  --art-sun: #A9CAD6;
+  --art-sun-deep: #7BA6B8;
+  --art-trunk: #6E7A6B;
+  --art-ridge: #C6D6D2;
   --art-teide: #34778F;
   --art-teide-sh: #275F76;
-  --art-snow: #FBF6EB;
-  --art-hill: #A2B086;
-  --art-sand: #EBDDC1;
-  --art-shrub: #7C8F62;
-  --art-bird: #8B7E66;
+  --art-snow: #F2F8F7;
+  --art-hill: #7FAE93;
+  --art-sand: #D6E0DC;
+  --art-shrub: #4F8C74;
+  --art-bird: #6E8288;
 
   --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
@@ -51,36 +53,37 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1C1916;
-    --card: #28241E;
-    --card-press: #322D25;
-    --ink: #EFE8DB;
-    --ink-2: #B0A691;
-    --ink-3: #918873;
+    --bg: #131A1B;
+    --card: #1D2527;
+    --card-press: #293436;
+    --ink: #E6EDEC;
+    --ink-2: #9DB0B1;
+    --ink-3: #79898A;
     --accent: #63B4D1;
-    --accent-soft: #22323A;
-    --hair: rgba(244, 232, 210, 0.10);
-    --hair-strong: rgba(244, 232, 210, 0.17);
+    --accent-soft: #203139;
+    --accent-2: #9296E0;
+    --hair: rgba(220, 236, 235, 0.10);
+    --hair-strong: rgba(220, 236, 235, 0.17);
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 10px 30px -12px rgba(0, 0, 0, 0.5);
     --shadow-float: 0 2px 8px rgba(0, 0, 0, 0.4), 0 16px 40px -8px rgba(0, 0, 0, 0.6);
-    --material: rgba(28, 25, 22, 0.82);
+    --material: rgba(19, 26, 27, 0.82);
 
-    --q0: #9DC183;  --q0-bg: #2C3424;
-    --q1: #CDBB6A;  --q1-bg: #36321F;
-    --q2: #DD9A5C;  --q2-bg: #3D2F20;
-    --q3: #E07B5C;  --q3-bg: #41281F;
+    --q0: #6FC1A2;  --q0-bg: #1E3029;
+    --q1: #9DBE7E;  --q1-bg: #26301E;
+    --q2: #D6A65C;  --q2-bg: #352B1C;
+    --q3: #E0785C;  --q3-bg: #3A231C;
 
-    --art-sun: #C99A55;
-    --art-sun-deep: #A8803F;
-    --art-trunk: #6E5740;
-    --art-ridge: #38322A;
+    --art-sun: #8FB4C2;
+    --art-sun-deep: #5A8395;
+    --art-trunk: #566058;
+    --art-ridge: #2A3634;
     --art-teide: #3C8199;
     --art-teide-sh: #2C6076;
-    --art-snow: #D8CEBC;
-    --art-hill: #525C44;
-    --art-sand: #2E2A22;
-    --art-shrub: #66754E;
-    --art-bird: #6E6557;
+    --art-snow: #CBDAD8;
+    --art-hill: #3E5A4C;
+    --art-sand: #202826;
+    --art-shrub: #4A7361;
+    --art-bird: #64787C;
   }
 }
 
@@ -1395,7 +1398,7 @@ button {
   display: grid;
   place-items: center;
   padding: calc(var(--sat) + 12px) 24px calc(var(--sab) + 24px);
-  background: linear-gradient(180deg, #CC7250 0%, #B05537 100%);
+  background: linear-gradient(180deg, #2E86A8 0%, #1B6182 100%);
   touch-action: none;
   cursor: pointer;
   -webkit-user-select: none;
@@ -1404,7 +1407,7 @@ button {
 
 @media (prefers-color-scheme: dark) {
   #splash {
-    background: linear-gradient(180deg, #A85B3F 0%, #8E4226 100%);
+    background: linear-gradient(180deg, #1E6C8C 0%, #144E6B 100%);
   }
 }
 
@@ -1474,7 +1477,7 @@ button {
   font-variation-settings: 'opsz' 80;
   letter-spacing: -0.01em;
   line-height: 1.05;
-  color: #F7F0E3;
+  color: #EAF4F6;
   animation: splash-title 0.5s var(--ease-ios) 0.92s both;
 }
 

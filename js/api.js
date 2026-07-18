@@ -12,7 +12,7 @@ const TENERIFE_MIN_LNG = -17.03;
 // solo gasolina; la 98 hace de "premium" (más octanaje) frente a la 95 normal.
 export const FUELS = [
   { key: 'g95', label: 'Gasolina 95', full: 'Gasolina 95 (E5)', api: 'Precio Gasolina 95 E5' },
-  { key: 'g98', label: '98',          full: 'Gasolina 98 (E5)', api: 'Precio Gasolina 98 E5' },
+  { key: 'g98', label: 'Gasolina 98', full: 'Gasolina 98 (E5)', api: 'Precio Gasolina 98 E5' },
 ];
 
 function num(s) {
